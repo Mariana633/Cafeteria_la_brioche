@@ -457,15 +457,15 @@ body {
    SECCIÓN TESTIMONIOS
 ====================== */
 .testimonials {
-  background-color: #f7f3ef;
-  padding: 40px 20px;
+  background: #ffffff;
+  padding: 60px 20px;
   text-align: center;
 }
 
 .testimonials h2 {
   font-size: 2rem;
   margin-bottom: 30px;
-  color: #ea580c;
+  color: #1b1b1b;
 }
 
 .testimonial-container {
@@ -476,11 +476,11 @@ body {
 }
 
 .testimonial {
-  background-color: #fff;
   padding: 20px;
   border-radius: 10px;
   max-width: 300px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
 .testimonial p {
@@ -490,14 +490,37 @@ body {
 
 .testimonial span {
   font-weight: bold;
+  font-style: italic;
   color: #ea580c;
+  display: block;
+  margin-top: 10px;
 }
 
 .testimonial {
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 300px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .testimonial:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+.testimonial {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
+}
+
+.testimonial:nth-child(1) { animation-delay: 0.1s; }
+.testimonial:nth-child(2) { animation-delay: 0.3s; }
+.testimonial:nth-child(3) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
