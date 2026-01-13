@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ======================
      REMOVE ITEM
   ====================== */
-  window.removeItem = function(name) {
+  window.removeItem = function (name) {
     cart = cart.filter(item => item.name !== name);
     saveCart();
     renderCart();
@@ -112,7 +112,4 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
 
-  /* INIT */
-  renderCart();
 
-});
