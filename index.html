@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cafetería</title>
 
   <!-- Google Font -->
@@ -11,204 +12,216 @@
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="main-header">
-  <div class="container">
-    <div class="logo">
-      <h1>La Brioche</h1>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <h1>La Brioche</h1>
+      </div>
+      <nav class="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#venta">Venta</a>
+        <a href="#productos">Productos</a>
     </div>
-    <nav class="menu">
-      <a href="#inicio">Inicio</a>
-      <a href="#venta">Venta</a>
-      <a href="#productos">Productos</a>
-  </div>
-</header>
+  </header>
 
 
-<section class="hero">
-  <div class="hero-content">
+  <section class="hero">
+    <div class="hero-content">
 
-    <span class="badge">☕ Bienvenido a nuestra cafetería</span>
+      <span class="badge">☕ Bienvenido a nuestra cafetería</span>
 
-    <h1>
-      Sabores que <br>
-      <span>despiertan tu día</span>
-    </h1>
+      <h1>
+        Sabores que <br>
+        <span>despiertan tu día</span>
+      </h1>
 
-    <p>
-      Descubre nuestra selección artesanal de panes, pasteles y cafés de especialidad.
-      Elaborados con amor y los mejores ingredientes cada mañana.
-    </p>
-
-    <div class="features">
-      <div class="feature">
-        ☕ <span>Café de especialidad</span>
-      </div>
-      <div class="feature">
-        🚚 <span>Despacho a domicilio</span>
-      </div>
-      <div class="feature">
-        ⏰ <span>Frescos cada día</span>
-      </div>
-      <div class="feature">
-        ⭐ <span>Calidad premium</span>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="hero-image">
-    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="Café">
-  </div>
-</section>
-
-<div class="cart-button" id="cartBtn">
-  🛒 <span id="cartCount">0</span>
-</div>
-
-
-<section class="products">
-  <div class="products-header">
-    <h2>Nuestros Productos</h2>
-    <p>Selecciona tus favoritos y agrégalos al carrito</p>
-  </div>
-
-  <div class="product-grid">
-
-    <div class="product-card">
-      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="Café Espresso">
-      <span class="tag">Café</span>
-      <h3>Café Espresso</h3>
-      <p>Intenso y aromático, preparado al momento.</p>
-      <div class="product-footer">
-        <span class="price">$2.500</span>
-        <button 
-            data-name="Café Espresso"
-            data-price="2500">
-            Agregar
-        </button>
-
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a" alt="Croissant">
-      <span class="tag">Panadería</span>
-      <h3>Croissant</h3>
-      <p>Crujiente y hojaldrado con mantequilla.</p>
-      <div class="product-footer">
-        <span class="price">$1.800</span>
-        <button 
-            data-name="Croissant"
-            data-price="1800">
-            Agregar
-        </button>
-
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://images.unsplash.com/photo-1597604391235-a7429b4b350c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Pan de Campo">
-      <span class="tag">Panadería</span>
-      <h3>Pan de Campo</h3>
-      <p>Masa madre fermentada 24 horas.</p>
-      <div class="product-footer">
-        <span class="price">$3.200</span>
-        <button 
-            data-name="Pan de Campo"
-            data-price="3200">
-            Agregar
-        </button>
-
-      </div>
-    </div>
-
-    <div class="product-card">
-      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" alt="Capuccino">
-      <span class="tag">Café</span>
-      <h3>Capuccino</h3>
-      <p>Café suave con espuma cremosa.</p>
-      <div class="product-footer">
-        <span class="price">$2.900</span>
-        <button 
-            data-name="Capuccino"
-            data-price="2900">
-            Agregar
-        </button>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-<footer class="footer">
-  <div class="footer-content">
-
-    <div class="footer-column">
-      <h3>☕ Café Artesanal</h3>
       <p>
-        Desde 2015 preparando los mejores productos artesanales con
-        ingredientes de primera calidad.
+        Descubre nuestra selección artesanal de panes, pasteles y cafés de especialidad.
+        Elaborados con amor y los mejores ingredientes cada mañana.
       </p>
+
+      <div class="features">
+        <div class="feature">
+          ☕ <span>Café de especialidad</span>
+        </div>
+        <div class="feature">
+          🚚 <span>Despacho a domicilio</span>
+        </div>
+        <div class="feature">
+          ⏰ <span>Frescos cada día</span>
+        </div>
+        <div class="feature">
+          ⭐ <span>Calidad premium</span>
+        </div>
+      </div>
+
     </div>
 
-    <div class="footer-column">
-      <h4>Horarios</h4>
-      <ul>
-        <li>Lunes a Viernes: 8:00 - 20:00</li>
-        <li>Sábado: 9:00 - 18:00</li>
-        <li>Domingo: 10:00 - 14:00</li>
-      </ul>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="Café">
     </div>
+  </section>
 
-    <div class="footer-column">
-      <h4>Contacto</h4>
-      <ul class="contact">
-        <li>📍 Av. Principal 123</li>
-        <li>📞 +56 9 1234 5678</li>
-        <li>✉️ hola@cafeartesanal.cl</li>
-      </ul>
-    </div>
-
+  <div class="cart-button" id="cartBtn">
+    🛒 <span id="cartCount">0</span>
   </div>
 
-  <div class="footer-bottom">
-    © 2024 Café Artesanal. Todos los derechos reservados.
-  </div>
-</footer>
 
-<div class="cart-overlay" id="cartOverlay">
-  <div class="cart">
-    <h3>Tu Carrito</h3>
-
-    <div class="cart-items" id="cartItems"></div>
-
-    <div class="cart-total">
-      <strong>Total:</strong>
-      <span id="cartTotal">$0</span>
+  <section class="products">
+    <div class="products-header">
+      <h2>Nuestros Productos</h2>
+      <p>Selecciona tus favoritos y agrégalos al carrito</p>
     </div>
 
-    <div class="cart-actions">
-      <button class="close-cart">Cerrar</button>
-      <button class="checkout">Comprar</button>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" alt="Café Espresso">
+        <span class="tag">Café</span>
+        <h3>Café Espresso</h3>
+        <p>Intenso y aromático, preparado al momento.</p>
+        <div class="product-footer">
+          <span class="price">$2.500</span>
+          <button data-name="Café Espresso" data-price="2500">
+            Agregar
+          </button>
+
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a" alt="Croissant">
+        <span class="tag">Panadería</span>
+        <h3>Croissant</h3>
+        <p>Crujiente y hojaldrado con mantequilla.</p>
+        <div class="product-footer">
+          <span class="price">$1.800</span>
+          <button data-name="Croissant" data-price="1800">
+            Agregar
+          </button>
+
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="https://images.unsplash.com/photo-1597604391235-a7429b4b350c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Pan de Campo">
+        <span class="tag">Panadería</span>
+        <h3>Pan de Campo</h3>
+        <p>Masa madre fermentada 24 horas.</p>
+        <div class="product-footer">
+          <span class="price">$3.200</span>
+          <button data-name="Pan de Campo" data-price="3200">
+            Agregar
+          </button>
+
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348" alt="Capuccino">
+        <span class="tag">Café</span>
+        <h3>Capuccino</h3>
+        <p>Café suave con espuma cremosa.</p>
+        <div class="product-footer">
+          <span class="price">$2.900</span>
+          <button data-name="Capuccino" data-price="2900">
+            Agregar
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="testimonials">
+    <h2>Lo que dicen nuestros clientes</h2>
+    <div class="testimonial-container">
+      <div class="testimonial">
+        <p>"El café es espectacular y el ambiente muy acogedor. ¡100% recomendado!"</p>
+        <span>- Valentina R.</span>
+      </div>
+      <div class="testimonial">
+        <p>"Siempre llegan mis pedidos a tiempo y los productos son frescos y deliciosos."</p>
+        <span>- Javier M.</span>
+      </div>
+      <div class="testimonial">
+        <p>"El personal es amable y el lugar tiene un encanto único. ¡Me encanta!"</p>
+        <span>- Camila G.</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+
+      <div class="footer-column">
+        <h3>☕ Café Artesanal</h3>
+        <p>
+          Desde 2015 preparando los mejores productos artesanales con
+          ingredientes de primera calidad.
+        </p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Horarios</h4>
+        <ul>
+          <li>Lunes a Viernes: 8:00 - 20:00</li>
+          <li>Sábado: 9:00 - 18:00</li>
+          <li>Domingo: 10:00 - 14:00</li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Contacto</h4>
+        <ul class="contact">
+          <li>📍 Av. Principal 123</li>
+          <li>📞 +56 9 1234 5678</li>
+          <li>✉️ hola@cafeartesanal.cl</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © 2024 Café Artesanal. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cartOverlay">
+    <div class="cart">
+      <h3>Tu Carrito</h3>
+
+      <div class="cart-items" id="cartItems"></div>
+
+      <div class="cart-total">
+        <strong>Total:</strong>
+        <span id="cartTotal">$0</span>
+      </div>
+
+      <div class="cart-actions">
+        <button class="close-cart">Cerrar</button>
+        <button class="checkout">Comprar</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="toast" id="toast">
-  <span id="toastMessage">Producto agregado</span>
-</div>
+  <div class="toast" id="toast">
+    <span id="toastMessage">Producto agregado</span>
+  </div>
 
-<button id="cartBtn">🛒</button>
+  <button id="cartBtn">🛒</button>
 
 
-<script src="main.js"></script>
+  <script src="main.js"></script>
 
 
 </body>
-</html>
 
+</html>
