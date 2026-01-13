@@ -33,11 +33,17 @@ body {
   transition: transform 0.1s ease, background-color 0.1s ease;
 }
 
+.hero .btn-cta:hover {
+  background-color: #d06213;
+}
+
 /* Efecto presionado al hacer click */
 .hero .btn-cta:active {
   transform: scale(0.95);
   background-color: #93470e;
 }
+
+
 
 
 /* LEFT */
