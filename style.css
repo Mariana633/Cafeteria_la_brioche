@@ -357,6 +357,16 @@ body {
   margin-bottom: 10px;
 }
 
+/* Barrita debajo del título */
+.products h2::after {
+  content: "";
+  width: 80px;
+  height: 3px;
+  background: #e38b2d;
+  display: block;
+  margin: 10px auto 0;
+}
+
 .products-header p {
   color: #78716c;
   font-size: 15px;
