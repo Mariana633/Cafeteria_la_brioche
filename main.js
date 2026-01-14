@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
 
-    /* INIT */
+  /* INIT */
   renderCart();
   /* ========================
       CONFIRMAR COMPRA
@@ -134,4 +134,55 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-  
+// ELEMENTOS
+const searchBtn = document.getElementById("searchBtn");
+const searchOverlay = document.getElementById("searchOverlay");
+const closeSearch = document.getElementById("closeSearch");
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+
+// ARRAY DE PRODUCTOS (simulado, puedes reemplazar con tus productos reales)
+const products = [
+  { name: "Café Espresso", price: 2500, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93" },
+  { name: "Croissant", price: 1800, img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a" },
+  { name: "Pan de Campo", price: 3200, img: "https://images.unsplash.com/photo-1597604391235-a7429b4b350c" },
+  { name: "Capuccino", price: 2900, img: "https://images.unsplash.com/photo-1511920170033-f8396924c348" },
+];
+
+// ABRIR OVERLAY
+searchBtn.addEventListener("click", () => {
+  searchOverlay.classList.add("active");
+  searchInput.focus();
+});
+
+// CERRAR OVERLAY
+closeSearch.addEventListener("click", () => {
+  searchOverlay.classList.remove("active");
+  searchInput.value = "";
+  searchResults.innerHTML = "";
+});
+
+// FILTRAR Y MOSTRAR RESULTADOS
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+  searchResults.innerHTML = "";
+
+  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+
+  filtered.forEach(p => {
+    const item = document.createElement("div");
+    item.className = "search-result-item";
+    item.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <div>
+        <div>${p.name}</div>
+        <span>$${p.price}</span>
+      </div>
+    `;
+    searchResults.appendChild(item);
+  });
+
+  if (query && filtered.length === 0) {
+    searchResults.innerHTML = "<p>No se encontraron productos</p>";
+  }
+});
