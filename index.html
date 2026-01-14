@@ -24,14 +24,20 @@
         <a href="#inicio">Inicio</a>
         <a href="#venta">Venta</a>
         <a href="#productos">Productos</a>
-        <a href="#Menu">Nuestro menú</a>
+        <!-- Dentro del header, después de los links del menú -->
+        <div class="search-icon" id="searchBtn">🔍</div>
     </div>
-    
+
   </header>
 
-
-
-
+  <!-- Búsqueda Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar productos...">
+      <div id="searchResults"></div>
+      <button id="closeSearch">Cerrar ✖</button>
+    </div>
+  </div>
   <section class="hero">
     <div class="hero-content">
 
@@ -228,6 +234,28 @@
 
     </div>
 
+    <section class="ubicacion">
+      <div class="container text-center">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="ubicacion__imagen">
+              <img
+                src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Café" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="ubicacion__mapa">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6691.496659646778!2d-71.55760222229003!3d-33.01041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689ddd9fa1e555f%3A0xc6ff272a420acc00!2sLa%20Brioche%20Bakery%20%26%20Caf%C3%A9!5e0!3m2!1ses!2scl!4v1768346389893!5m2!1ses!2scl"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
     <div class="footer-bottom">
       © 2024 Café Artesanal. Todos los derechos reservados.
     </div>

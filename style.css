@@ -11,6 +11,91 @@ body {
 }
 
 
+/* NAVBAR */
+
+/* Icono de lupa en el header */
+.search-icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+}
+
+/* Overlay de búsqueda */
+.search-overlay {
+  position: fixed;
+  /* fijo sobre la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  /* negro semitransparente */
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+  z-index: 2000;
+  /* más alto que header y carrito */
+}
+
+.search-overlay.active {
+  display: flex;
+}
+
+.search-overlay.active {
+  display: flex;
+}
+
+/* Panel de búsqueda */
+.search-panel {
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  padding: 40px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.search-panel input {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.search-result-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.search-result-item span {
+  font-weight: 500;
+  color: #f97316;
+}
+
+
 /* HERO */
 .hero {
   display: flex;
@@ -313,7 +398,8 @@ body {
   top: 60px;
   right: 25px;
   background: #f97316;
-  border: 2px solid white; /* ancho + estilo + color del borde */
+  border: 2px solid white;
+  /* ancho + estilo + color del borde */
   color: #fff;
   padding: 12px 18px;
   border-radius: 30px;
@@ -574,6 +660,7 @@ body {
   }
 }
 
+<<<<<<< HEAD
 
 .menu-section {
   display: grid;
@@ -662,3 +749,8 @@ body {
 
 
 
+=======
+.ubicacion .img{
+  width: 100px;
+}
+>>>>>>> a78a884cd7c334d8e1f1e5cc39e13e33d0da524a
