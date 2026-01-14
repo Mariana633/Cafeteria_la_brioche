@@ -313,7 +313,7 @@ body {
   filter: brightness(0) invert(1);
 }
 
-.footer-column .material-symbols-outlined{
+.footer-column .material-symbols-outlined {
   font-size: 15px;
   color: #a8a29e;
   align-content: center;
@@ -362,19 +362,49 @@ body {
   font-size: 15px;
 }
 
+/* GRID DE PRODUCTOS ADAPTATIVO Y NO TAN GRANDE */
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px;
+  scroll-snap-type: x mandatory;
+  max-width: 1200px;
+  /* evita que se estire demasiado */
+  margin: 0 auto;
+  /* centra en la página */
 }
 
 .product-card {
+  flex: 0 0 auto;
+  /* no crecer ni encoger */
+  width: 260px;
+  /* ancho fijo */
+  scroll-snap-align: start;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   position: relative;
   transition: transform 0.3s ease;
+}
+
+/* Responsive: en pantallas pequeñas, ajustar ancho de tarjetas */
+@media (max-width: 768px) {
+  .product-card {
+    width: 300px;
+  }
+
+  .product-grid {
+    padding: 15px;
+    gap: 15px;
+  }
+}
+
+.product-card .material-symbols-outlined {
+  font-size: 16px;
+  align-content: center;
 }
 
 .product-card:hover {
@@ -432,6 +462,13 @@ body {
   font-size: 13px;
   cursor: pointer;
   transition: background 0.3s;
+  display: inline-flex;
+  /* reemplaza cualquier display que tengas */
+  align-items: center;
+  /* centra verticalmente texto e ícono */
+  justify-content: center;
+  /* centra horizontalmente (opcional) */
+  gap: 5px;
 }
 
 .product-footer button:hover {
@@ -711,6 +748,11 @@ body {
   margin-bottom: 40px;
 }
 
+.testimonial-item p {
+  text-align: left;
+}
+
+
 /* Barrita debajo del título */
 .testimonials h2::after {
   content: "";
@@ -827,6 +869,7 @@ body {
   border-radius: 4px;
   font-weight: 500;
 }
+
 
 .btn-menu:hover {
   background: #c87422;

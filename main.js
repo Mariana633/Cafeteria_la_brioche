@@ -298,6 +298,24 @@ document.addEventListener("DOMContentLoaded", () => {
     track.style.transform = `translateX(-${index * itemWidth + diff}px)`;
   });
 
+  track.addEventListener('touchend', () => {
+    isDragging = false;
+    track.style.transition = 'transform 0.3s ease';
+  });
+
+
+  // SCROLL PRODUCTOS CON TECLAS (ACCESIBILIDAD)
+  const leftBtn = document.getElementById('leftBtn');
+  const rightBtn = document.getElementById('rightBtn');
+  const grid = document.querySelector('.product-grid');
+
+  leftBtn.addEventListener('click', () => {
+    grid.scrollBy({ left: -280, behavior: 'smooth' });
+  });
+
+  rightBtn.addEventListener('click', () => {
+    grid.scrollBy({ left: 280, behavior: 'smooth' });
+  });
 });
 
 
