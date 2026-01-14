@@ -307,6 +307,19 @@ body {
   gap: 10px;
 }
 
+.footer-column img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-column .material-symbols-outlined{
+  font-size: 15px;
+  color: #a8a29e;
+  align-content: center;
+
+}
+
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 20px;
@@ -616,7 +629,57 @@ body {
   margin: 0 auto;
 }
 
+/* ======================
+   SECCIÓN INFORMACIONES
+====================== */
+.informaciones {
+  background: linear-gradient(135deg, #fff7ec, #fdfdfd);
+}
 
+.informaciones h3 {
+  font-weight: 600;
+  color: #1b1b1b;
+  font-size: 1.2rem;
+}
+
+/* Barrita debajo del título */
+.informaciones h3::after {
+  content: "";
+  width: 80px;
+  height: 3px;
+  background: #e38b2d;
+  display: block;
+  margin: 10px auto 0;
+}
+
+.informaciones p {
+  text-align: center;
+  color: #78716c;
+  font-size: 15px;
+}
+
+.informaciones .informacion {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  /* 🔑 misma altura */
+}
+
+.informaciones .material-symbols-outlined {
+  color: #e38b2d;
+}
+
+/* Hover efecto tipo testimonios */
+.informaciones .informacion {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.informaciones .informacion:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
 
 /* ======================
    SECCIÓN TESTIMONIOS
