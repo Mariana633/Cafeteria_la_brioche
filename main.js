@@ -1,6 +1,108 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   console.log("Hero de cafetería cargado ☕");
+
+
+
+
+
+/* ======================
+   BUSCADOR (OVERLAY)
+====================== */
+const searchIcon    = document.getElementById("searchIcon");   // botón del header
+const searchOverlay = document.getElementById("searchOverlay");
+const closeSearch   = document.getElementById("closeSearch");
+const searchInput   = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+
+// Solo para verificar en consola:
+console.log("searchIcon:", searchIcon);
+console.log("searchOverlay:", searchOverlay);
+
+/* Abrir overlay al hacer click en la lupa */
+if (searchIcon && searchOverlay) {
+  searchIcon.addEventListener("click", () => {
+    console.log("Click en lupa");
+    searchOverlay.classList.add("active");
+    if (searchInput) searchInput.focus();
+  });
+}
+
+/* Cerrar con la X */
+if (closeSearch && searchOverlay) {
+  closeSearch.addEventListener("click", () => {
+    searchOverlay.classList.remove("active");
+  });
+}
+
+/* Cerrar haciendo click fuera de la caja blanca */
+if (searchOverlay) {
+  searchOverlay.addEventListener("click", (e) => {
+    if (e.target === searchOverlay) {
+      searchOverlay.classList.remove("active");
+    }
+  });
+}
+
+/* (Opcional) Filtrar mientras escribes si más adelante usas `products` */
+if (
+  searchInput &&
+  searchResults &&
+  typeof products !== "undefined" &&
+  typeof renderSearchResults === "function"
+) {
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    const filtered = products.filter((p) =>
+      p.name.toLowerCase().includes(query)
+    );
+    renderSearchResults(filtered);
+  });
+}
+
+
+const searchBtnAction = document.getElementById("searchBtnAction");
+
+if (searchBtnAction && searchInput && searchResults) {
+  searchBtnAction.addEventListener("click", () => {
+    const query = searchInput.value.toLowerCase();
+    
+    if (!query.trim()) return;
+
+    if (typeof products !== "undefined" && typeof renderSearchResults === "function") {
+      const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+      renderSearchResults(filtered);
+    }
+  });
+}
+
+
+
+/* ======================
+    RESERVAS
+====================== */
+
+const btnReservas = document.getElementById("btnReservas");
+const reservasSection = document.getElementById("reservas");
+const cerrarReservas = document.getElementById("cerrarReservas");
+
+if (btnReservas && reservasSection) {
+  btnReservas.addEventListener("click", (e) => {
+    e.preventDefault();
+    reservasSection.classList.add("active");
+    reservasSection.scrollIntoView({ behavior: "smooth" });
+  });
+}
+
+if (cerrarReservas && reservasSection) {
+  cerrarReservas.addEventListener("click", () => {
+    reservasSection.classList.remove("active");
+  });
+}
+
+
+
+
+
 
   /* ======================
      TOAST
@@ -22,80 +124,37 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ======================
      CARRITO
   ====================== */
-  const cartBtn = document.getElementById("cartBtn");
+  const cartBtn     = document.getElementById("cartBtn");
   const cartOverlay = document.getElementById("cartOverlay");
   const cartItemsEl = document.getElementById("cartItems");
-  const cartCount = document.getElementById("cartCount");
-  const cartTotal = document.getElementById("cartTotal");
+  const cartCount   = document.getElementById("cartCount");
+  const cartTotal   = document.getElementById("cartTotal");
 
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  /* OPEN / CLOSE */
+  /* Abrir carrito */
   if (cartBtn && cartOverlay) {
     cartBtn.addEventListener("click", () => {
       cartOverlay.classList.add("active");
     });
   }
 
-  // Cerrar carrito al presionar el botón "Cerrar" o al hacer click fuera del carrito
+  /* Cerrar carrito al hacer click fuera o en botón .close-cart */
   if (cartOverlay) {
     cartOverlay.addEventListener("click", (e) => {
-      // Si hace click en el overlay o en el botón con clase close-cart (o en un elemento hijo)
-      if (e.target === cartOverlay || (e.target.closest && e.target.closest('.close-cart'))) {
+      if (e.target === cartOverlay || e.target.classList.contains("close-cart")) {
         cartOverlay.classList.remove("active");
       }
     });
   }
 
-  // Delegated click handler: robustly close cart when any element with .close-cart is clicked
-  document.addEventListener("click", (e) => {
-    const closeBtn = e.target.closest && e.target.closest('.close-cart');
-    if (closeBtn) {
-      if (cartOverlay) cartOverlay.classList.remove("active");
-    }
-  });
-
-  // Close the cart with the Escape key for convenience
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" || e.key === "Esc") {
-      if (cartOverlay) cartOverlay.classList.remove("active");
-    }
-  });
-
   /* ======================
-     ADD PRODUCTS
+     FUNCIONES CARRITO
   ====================== */
-  document.querySelectorAll(".product-footer button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const name = btn.dataset.name || "Producto";
-      const price = Number(btn.dataset.price) || 0;
+  function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
 
-      const item = cart.find(p => p.name === name);
-
-      if (item) {
-        item.qty++;
-      } else {
-        cart.push({ name, price, qty: 1 });
-      }
-
-      saveCart();
-      renderCart();
-      showToast(`"${name}" agregado al carrito`);
-    });
-  });
-
-  /* ======================
-     REMOVE ITEM
-  ====================== */
-  window.removeItem = function (name) {
-    cart = cart.filter(item => item.name !== name);
-    saveCart();
-    renderCart();
-  };
-
-  /* ======================
-     RENDER
-  ====================== */
   function renderCart() {
     if (!cartItemsEl || !cartTotal || !cartCount) return;
 
@@ -122,241 +181,181 @@ document.addEventListener("DOMContentLoaded", () => {
     cartCount.textContent = count;
   }
 
-  /* ======================
-     SAVE
-  ====================== */
-  function saveCart() {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }
+  // Quitar item con la X
+  window.removeItem = function (name) {
+    cart = cart.filter(item => item.name !== name);
+    saveCart();
+    renderCart();
+  };
 
-  /* INIT */
-  renderCart();
-  /* ========================
-      CONFIRMAR COMPRA
-  ======================== */
-  const checkoutBtn = document.querySelector(".checkout");
+  /* Añadir producto al carrito (función genérica) */
+  function addToCart(name, price) {
+    if (!name || isNaN(price)) return;
 
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", () => {
-      if (cart.length === 0) {
-        showToast("Tu carrito está vacío"); return;
-      }
-
-      showToast("Gracias por tu compra ☕");
-      cart = [];
-      saveCart();
-      renderCart();
-      // Cerrar el overlay después de la compra
-      if (cartOverlay) cartOverlay.classList.remove("active");
-    });
-  }
-
-  /* ======================
-   BÚSQUEDA DE PRODUCTOS
-====================== */
-  const searchBtn = document.getElementById("searchBtn");
-  const searchOverlay = document.getElementById("searchOverlay");
-  const searchInput = document.getElementById("searchInput");
-  const searchResults = document.getElementById("searchResults");
-  const closeSearch = document.getElementById("closeSearch");
-
-  // Mostrar overlay
-  if (searchBtn && searchOverlay) {
-    searchBtn.addEventListener("click", () => {
-      searchOverlay.classList.add("active");
-      searchInput.value = "";
-      searchResults.innerHTML = "";
-      searchInput.focus();
-    });
-  }
-
-  // Cerrar overlay
-  if (closeSearch) {
-    closeSearch.addEventListener("click", () => {
-      searchOverlay.classList.remove("active");
-    });
-  }
-
-  // Cerrar con tecla ESC
-  document.addEventListener("keydown", (e) => {
-    if ((e.key === "Escape" || e.key === "Esc") && searchOverlay.classList.contains("active")) {
-      searchOverlay.classList.remove("active");
-    }
-  });
-
-  // Productos (tomados del HTML)
-  const products = [
-    {
-      name: "Café Espresso",
-      price: 2500,
-      img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
-      desc: "Intenso y aromático, preparado al momento."
-    },
-    {
-      name: "Croissant",
-      price: 1800,
-      img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a",
-      desc: "Crujiente y hojaldrado con mantequilla."
-    },
-    {
-      name: "Pan de Campo",
-      price: 3200,
-      img: "https://images.unsplash.com/photo-1597604391235-a7429b4b350c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      desc: "Masa madre fermentada 24 horas."
-    },
-    {
-      name: "Capuccino",
-      price: 2900,
-      img: "https://images.unsplash.com/photo-1511920170033-f8396924c348",
-      desc: "Café suave con espuma cremosa."
-    },
-    {
-      name: "Pain au Chocolat",
-      price: 2200,
-      img: "https://images.pexels.com/photos/8909323/pexels-photo-8909323.jpeg",
-      desc: "Hojaldrado relleno de chocolate oscuro, ideal para acompañar con café."
-    },
-    {
-      name: "Latte de Vainilla",
-      price: 3000,
-      img: "https://images.unsplash.com/photo-1511920170033-f8396924c348",
-      desc: "Espresso con leche vaporizada y un toque de sirope de vainilla, cremosa y aromática."
-    },
-    {
-      name: "Focaccia Artesanal",
-      price: 3500,
-      img: "https://plus.unsplash.com/premium_photo-1692309812344-fde93f207437?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      desc: "Focaccia suave con aceite de oliva, romero y sal marina. Perfecta para acompañar cualquier comida."
-    }
-  ];
-
-  // Función para renderizar resultados
-  function renderSearchResults(filteredProducts) {
-    searchResults.innerHTML = "";
-    if (filteredProducts.length === 0) {
-      searchResults.innerHTML = "<p>No se encontraron productos</p>";
-      return;
+    const item = cart.find(p => p.name === name);
+    if (item) {
+      item.qty++;
+    } else {
+      cart.push({ name, price, qty: 1 });
     }
 
-    filteredProducts.forEach(prod => {
-      const div = document.createElement("div");
-      div.classList.add("search-result-item");
-      div.innerHTML = `
-      <img src="${prod.img}" alt="${prod.name}">
-      <div class="info">
-        <strong>${prod.name}</strong><br>
-        <span>$${prod.price}</span>
-      </div>
-      <button data-name="${prod.name}" data-price="${prod.price}">            <span class="material-symbols-outlined">
-              add
-            </span>Agregar</button>
-    `;
-      searchResults.appendChild(div);
-    });
+    saveCart();
+    renderCart();
+    showToast(`"${name}" agregado al carrito`);
+  }
 
-    // Agregar funcionalidad de agregar al carrito
-    searchResults.querySelectorAll("button").forEach(btn => {
+  /* Enganchar TODOS los botones que tienen data-name y data-price */
+  function bindCartButtons(root = document) {
+    const buttons = root.querySelectorAll('button[data-name][data-price]');
+
+    buttons.forEach(btn => {
+      if (btn.dataset.cartBound === "1") return;
+      btn.dataset.cartBound = "1";
+
       btn.addEventListener("click", () => {
-        const name = btn.dataset.name;
+        const name  = btn.dataset.name;
         const price = Number(btn.dataset.price);
-
-        const item = cart.find(p => p.name === name);
-        if (item) item.qty++;
-        else cart.push({ name, price, qty: 1 });
-
-        saveCart();
-        renderCart();
-        showToast(`"${name}" agregado al carrito`);
+        addToCart(name, price);
       });
     });
   }
 
-  // Filtrar mientras escribes
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.toLowerCase();
-      const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-      renderSearchResults(filtered);
+  // Enganchar botones iniciales (favoritos + secciones)
+  bindCartButtons();
+
+  /* ========================
+      CONFIRMAR COMPRA (delegado)
+  ======================== */
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".checkout");
+    if (!btn) return;
+
+    e.stopPropagation();
+    console.log("CLICK EN COMPRAR (delegado)");
+
+    if (cart.length === 0) {
+      showToast("Tu carrito está vacío");
+      return;
+    }
+
+    cart = [];
+    saveCart();
+    renderCart();
+
+    if (cartOverlay) {
+      cartOverlay.classList.remove("active");
+    }
+
+    showToast("¡Gracias por tu compra! ☕");
+  });
+
+  /* ======================
+     MOSTRAR / OCULTAR SECCIONES DE PRODUCTOS
+  ====================== */
+  const botonesVer = document.querySelectorAll('.btn-ver-productos');
+  const secciones  = document.querySelectorAll('.productos-section');
+
+  botonesVer.forEach(boton => {
+    boton.addEventListener('click', function () {
+      const targetId = this.dataset.target;
+
+      secciones.forEach(sec => {
+        if (sec.id === targetId) {
+          sec.classList.add('mostrar');
+          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          sec.classList.remove('mostrar');
+        }
+      });
+
+      bindCartButtons();
+    });
+  });
+
+  /* ======================
+     SLIDER DE TESTIMONIOS
+  ====================== */
+  const track = document.querySelector('.testimonials-track');
+  let items = track ? track.querySelectorAll('.testimonial-item') : [];
+
+  if (track && items.length > 0) {
+    let index = 0;
+    let itemWidth = items[0].offsetWidth + 24;
+
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      track.appendChild(clone);
+    });
+
+    items = track.querySelectorAll('.testimonial-item');
+
+    function moveSlider() {
+      index++;
+      track.style.transition = 'transform 0.6s ease';
+      track.style.transform = `translateX(-${index * itemWidth}px)`;
+
+      if (index >= items.length / 2) {
+        setTimeout(() => {
+          track.style.transition = 'none';
+          index = 0;
+          track.style.transform = 'translateX(0)';
+        }, 500);
+      }
+    }
+
+    setInterval(moveSlider, 2000);
+
+    window.addEventListener('resize', () => {
+      if (items[0]) {
+        itemWidth = items[0].offsetWidth + 24;
+      }
+    });
+
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      track.style.transition = 'none';
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+      const diff = startX - currentX;
+      track.style.transform = `translateX(-${index * itemWidth + diff}px)`;
+    });
+
+    track.addEventListener('touchend', () => {
+      isDragging = false;
+      track.style.transition = 'transform 0.3s ease';
     });
   }
 
-
-
-
-  const track = document.querySelector('.testimonials-track');
-  let items = document.querySelectorAll('.testimonial-item');
-
-  let index = 0;
-  const speed = 1600; // 🔥 más rápido
-
-  // DUPLICAR testimonios para loop infinito
-  items.forEach(item => {
-    const clone = item.cloneNode(true);
-    track.appendChild(clone);
-  });
-
-  // Recalcular items después de duplicar
-  items = document.querySelectorAll('.testimonial-item');
-  const itemWidth = items[0].offsetWidth + 24; // ancho + gap
-
-  function moveSlider() {
-    index++;
-
-    track.style.transition = 'transform 0.6s ease';
-    track.style.transform = `translateX(-${index * itemWidth}px)`;
-
-    // Reset invisible cuando llega a la mitad
-    if (index >= items.length / 2) {
-      setTimeout(() => {
-        track.style.transition = 'none';
-        index = 0;
-        track.style.transform = 'translateX(0)';
-      }, 500);
-    }
-  }
-
-  setInterval(moveSlider, 2000);
-
-
-  // MOVIMIENTO SLIDER TESTIMONIOS VERSIÓN MOBILE
-  let startX = 0;
-  let currentX = 0;
-  let isDragging = false;
-  track.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-    track.style.transition = 'none'; // sin animación mientras arrastra
-  });
-
-  track.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-
-    currentX = e.touches[0].clientX;
-    const diff = startX - currentX;
-    const itemWidth = items[0].offsetWidth + 24;
-
-    track.style.transform = `translateX(-${index * itemWidth + diff}px)`;
-  });
-
-  track.addEventListener('touchend', () => {
-    isDragging = false;
-    track.style.transition = 'transform 0.3s ease';
-  });
-
-
-  // SCROLL PRODUCTOS CON TECLAS (ACCESIBILIDAD)
-  const leftBtn = document.getElementById('leftBtn');
-  const rightBtn = document.getElementById('rightBtn');
-  const grid = document.querySelector('.product-grid');
-
-  leftBtn.addEventListener('click', () => {
-    grid.scrollBy({ left: -280, behavior: 'smooth' });
-  });
-
-  rightBtn.addEventListener('click', () => {
-    grid.scrollBy({ left: 280, behavior: 'smooth' });
-  });
+  /* ======================
+     INICIALIZAR CARRITO
+  ====================== */
+  renderCart();
 });
 
+/* ======================
+   MENSAJE DE COMPRA ABAJO (opcional)
+====================== */
+function showPurchaseMessage(text) {
+  let msg = document.getElementById("purchaseMessage");
 
+  if (!msg) {
+    msg = document.createElement("div");
+    msg.id = "purchaseMessage";
+    document.body.appendChild(msg);
+  }
 
+  msg.textContent = text;
+  msg.classList.add("visible");
+
+  setTimeout(() => {
+    msg.classList.remove("visible");
+  }, 4000);
+}
