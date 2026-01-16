@@ -13,13 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchIcon && searchOverlay) {
     searchIcon.addEventListener("click", () => {
       searchOverlay.classList.add("active");
-      searchInput.focus();
+      if (searchInput) searchInput.focus();
     });
   }
 
   if (closeSearch && searchOverlay) {
     closeSearch.addEventListener("click", () => {
       searchOverlay.classList.remove("active");
+      if (searchInput) searchInput.value = "";
+      if (searchResults) searchResults.innerHTML = "";
     });
   }
 
@@ -27,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     searchOverlay.addEventListener("click", (e) => {
       if (e.target === searchOverlay) {
         searchOverlay.classList.remove("active");
+        if (searchInput) searchInput.value = "";
+        if (searchResults) searchResults.innerHTML = "";
       }
     });
   }
@@ -42,6 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderSearchResults(results) {
+    if (!searchResults) return;
+
     searchResults.innerHTML = "";
 
     if (results.length === 0) {
@@ -74,16 +80,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const allProducts = getProductsFromHTML();
 
-  searchInput?.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase().trim();
-    if (!query) {
-      searchResults.innerHTML = "";
-      return;
-    }
-    renderSearchResults(
-      allProducts.filter(p => p.name.toLowerCase().includes(query))
-    );
-  });
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase().trim();
+      if (!query) {
+        if (searchResults) searchResults.innerHTML = "";
+        return;
+      }
+      renderSearchResults(
+        allProducts.filter(p => p.name.toLowerCase().includes(query))
+      );
+    });
+  }
 
   /* ======================
      TOAST
@@ -193,6 +201,92 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target === cartOverlay || e.target.classList.contains("close-cart")) {
         cartOverlay.classList.remove("active");
       }
+    });
+  }
+
+  /* ======================
+     MOSTRAR SOLO UNA CATEGORÍA
+  ====================== */
+  const botonesMenu = document.querySelectorAll(".btn-ver-productos");
+  const seccionesProductos = document.querySelectorAll(".productos-section");
+
+  botonesMenu.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetId = btn.dataset.target;
+      const targetSection = document.getElementById(targetId);
+
+      if (!targetSection) return;
+
+      // Ocultar todas las categorías
+      seccionesProductos.forEach(sec => sec.classList.remove("active"));
+
+      // Mostrar solo la elegida
+      targetSection.classList.add("active");
+
+      // Scroll hacia la sección
+      targetSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  });
+
+  /* ======================
+     SLIDER TESTIMONIOS
+  ====================== */
+  const track = document.querySelector(".testimonials-track");
+
+  if (track) {
+    let items = track.querySelectorAll(".testimonial-item");
+
+    if (items.length > 0) {
+      const gap = 24;
+      let index = 0;
+      let itemWidth = items[0].offsetWidth + gap;
+
+      // Duplicar items para efecto infinito
+      items.forEach(item => track.appendChild(item.cloneNode(true)));
+      items = track.querySelectorAll(".testimonial-item");
+
+      // Recalcular ancho al cambiar tamaño de ventana (opcional pero útil)
+      window.addEventListener("resize", () => {
+        itemWidth = items[0].offsetWidth + gap;
+      });
+
+      setInterval(() => {
+        index++;
+        track.style.transition = "transform 0.6s ease";
+        track.style.transform = `translateX(-${index * itemWidth}px)`;
+
+        if (index >= items.length / 2) {
+          setTimeout(() => {
+            track.style.transition = "none";
+            index = 0;
+            track.style.transform = "translateX(0)";
+          }, 500);
+        }
+      }, 2500);
+    }
+  }
+
+  /* ======================
+     RESERVAS
+  ====================== */
+  const btnReservas = document.getElementById("btnReservas");
+  const reservasSection = document.getElementById("reservas");
+  const cerrarReservas = document.getElementById("cerrarReservas");
+
+  if (btnReservas && reservasSection) {
+    btnReservas.addEventListener("click", (e) => {
+      e.preventDefault();
+      reservasSection.classList.add("active");
+      reservasSection.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
+  if (cerrarReservas && reservasSection) {
+    cerrarReservas.addEventListener("click", () => {
+      reservasSection.classList.remove("active");
     });
   }
 });

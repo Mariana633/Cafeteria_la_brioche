@@ -1145,6 +1145,17 @@ body {
   }
 }
 
+/* Oculta todas las categorías al inicio */
+.productos-section {
+  display: none;
+}
+
+/* Muestra la que tenga la clase active */
+.productos-section.active {
+  display: block;
+}
+
+
 
 /* ======================
    SECCIÓN INFORMACIONES
